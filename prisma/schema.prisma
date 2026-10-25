@@ -1,0 +1,115 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Difficulty {
+  EASY
+  MODERATE
+  STRENUOUS
+  CHALLENGING
+}
+
+enum Region {
+  EVEREST
+  ANNAPURNA
+  LANGTANG
+  MANASLU
+  MUSTANG
+  POKHARA
+  CHITWAN
+  KATHMANDU
+}
+
+enum TripCategory {
+  TREKKING
+  EXPEDITION
+  CULTURAL_HERITAGE
+  WILDLIFE_SAFARI
+  DAY_HIKE
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  QUOTED
+  CONFIRMED
+  CLOSED
+}
+
+model Destination {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  region      Region
+  elevation   Int?     // Elevation in meters
+  tagline     String
+  description String   @db.Text
+  heroImage   String
+  highlights  String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  trips       Trip[]
+}
+
+model Trip {
+  id              String       @id @default(cuid())
+  slug            String       @unique
+  title           String
+  subtitle        String
+  durationDays    Int
+  maxAltitude     Int          // Max altitude in meters
+  difficulty      Difficulty
+  category        TripCategory
+  region          Region
+  startingPoint   String
+  endingPoint     String
+  bestSeasons     String[]     // e.g. ["Spring (Mar-May)", "Autumn (Sep-Nov)"]
+  featured        Boolean      @default(false)
+  priceFromUsd    Int
+  heroImage       String
+  overview        String       @db.Text
+  itinerarySummary String[]
+  includedItems   String[]
+  excludedItems   String[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  destinationId   String?
+  destination     Destination? @relation(fields: [destinationId], references: [id])
+  inquiries       Inquiry[]
+}
+
+model Inquiry {
+  id             String        @id @default(cuid())
+  fullName       String
+  email          String
+  country        String
+  phone          String?
+  travelMonth    String?
+  groupSize      Int           @default(1)
+  customMessage  String        @db.Text
+  status         InquiryStatus @default(NEW)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  tripId         String?
+  trip           Trip?         @relation(fields: [tripId], references: [id])
+}
+
+model TravelArticle {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  title          String
+  excerpt        String
+  content        String   @db.Text
+  readingTimeMin Int
+  category       String
+  coverImage     String
+  publishedAt    DateTime @default(now())
+}

@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #fbf9f5; /* Warm off-white paper tone */
+    --foreground: #1c2621; /* Deep charcoal / dark forest ink */
+    --card: #ffffff;
+    --card-foreground: #1c2621;
+    --primary: #1e3328; /* Deep Forest Green */
+    --primary-foreground: #f7f9f6;
+    --secondary: #efece5; /* Soft earth sand */
+    --secondary-foreground: #2d3e33;
+    --accent: #b85a3a; /* Restrained Himalayan terracotta */
+    --accent-hover: #9e4a2d;
+    --muted: #f2efe9;
+    --muted-foreground: #5a6b61;
+    --border: #e4dfd5;
+    --ring: #1e3328;
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom editorial typography utility classes */
+.font-editorial {
+  font-family: var(--font-editorial, "Georgia", "Cambria", "Times New Roman", serif);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Custom scrollbar and subtle selection */
+::selection {
+  background-color: #dbe4dc;
+  color: #16241b;
+}
+
+/* Accessible focus styling */
+:focus-visible {
+  outline: 2px solid #b85a3a;
+  outline-offset: 2px;
 }
