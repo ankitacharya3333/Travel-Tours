@@ -102,13 +102,22 @@ export default function DestinationsPage() {
                       <span className="text-xs text-[#63756b]">
                         <strong>Best Seasons:</strong> {dest.bestTime}
                       </span>
-                      <Link
-                        href={`/trips?region=${encodeURIComponent(dest.region)}`}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 bg-[#1e3328] text-[#fbf9f5] rounded-sm hover:bg-[#15241c] transition-colors"
-                      >
-                        <span>View {dest.region} Treks</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={`/destinations/${dest.slug}`}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 border border-[#1e3328]/30 text-[#1e3328] rounded-sm hover:bg-[#1e3328]/5 transition-colors"
+                        >
+                          <span>Region Guide</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                        <Link
+                          href={`/trips?region=${encodeURIComponent(dest.region)}`}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 bg-[#1e3328] text-[#fbf9f5] rounded-sm hover:bg-[#15241c] transition-colors"
+                        >
+                          <span>View {dest.region} Treks</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -25,12 +25,15 @@ enum Region {
   KATHMANDU
 }
 
-enum TripCategory {
+enum TourCategory {
   TREKKING
   EXPEDITION
   CULTURAL_HERITAGE
   WILDLIFE_SAFARI
   DAY_HIKE
+  LAKES_AND_SOFT_ADVENTURE
+  PILGRIMAGE_AND_HERITAGE
+  CUSTOM_PRIVATE
 }
 
 enum InquiryStatus {
@@ -41,48 +44,110 @@ enum InquiryStatus {
   CLOSED
 }
 
-model Destination {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  name        String
-  region      Region
-  elevation   Int?     // Elevation in meters
-  tagline     String
-  description String   @db.Text
-  heroImage   String
-  highlights  String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
 
-  trips       Trip[]
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  SKIPPED
+}
+
+model Destination {
+  id                  String   @id @default(cuid())
+  slug                String   @unique
+  name                String
+  region              Region
+  elevation           String?
+  tagline             String
+  description         String   @db.Text
+  heroImage           String
+  highlights          String[]
+  bestTime            String?
+  recommendedDuration String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  trips               Trip[]
+
+  @@index([region])
 }
 
 model Trip {
-  id              String       @id @default(cuid())
-  slug            String       @unique
-  title           String
-  subtitle        String
-  durationDays    Int
-  maxAltitude     Int          // Max altitude in meters
-  difficulty      Difficulty
-  category        TripCategory
-  region          Region
-  startingPoint   String
-  endingPoint     String
-  bestSeasons     String[]     // e.g. ["Spring (Mar-May)", "Autumn (Sep-Nov)"]
-  featured        Boolean      @default(false)
-  priceFromUsd    Int
-  heroImage       String
-  overview        String       @db.Text
-  itinerarySummary String[]
-  includedItems   String[]
-  excludedItems   String[]
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+  id               String       @id @default(cuid())
+  slug             String       @unique
+  title            String
+  subtitle         String
+  durationDays     Int
+  maxAltitudeMeters Int         // Max altitude in meters
+  difficulty       Difficulty
+  category         TourCategory
+  region           Region
+  startingPoint    String
+  endingPoint      String
+  bestSeasons      String[]     // e.g. ["Spring (Mar-May)", "Autumn (Sep-Nov)"]
+  featured         Boolean      @default(false)
+  priceFromUsd     Int
+  currency         String       @default("USD")
+  maxGroupSize     Int          @default(10)
+  fitnessRequired  String?      @db.Text
+  heroImage        String
+  overview         String       @db.Text
+  highlights       String[]
+  itinerarySummary String[]     // e.g. ["Day 1: Fly Lukla...", "Day 2: Namche..."]
+  includedItems    String[]
+  excludedItems    String[]
+  isPublished      Boolean      @default(true)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
 
-  destinationId   String?
-  destination     Destination? @relation(fields: [destinationId], references: [id])
-  inquiries       Inquiry[]
+  destinationId    String?
+  destination      Destination? @relation(fields: [destinationId], references: [id])
+  inquiries        Inquiry[]
+  bookings         Booking[]
+
+  @@index([category])
+  @@index([difficulty])
+  @@index([region])
+  @@index([isPublished])
+}
+
+model Booking {
+  id                   String             @id @default(cuid())
+  reference            String             @unique // e.g. HT-2026-X8Y9Z
+  tripId               String
+  trip                 Trip               @relation(fields: [tripId], references: [id])
+  departureDate        DateTime
+  travelerCount        Int
+  totalPriceSnapshotUsd Int
+  currencySnapshot     String             @default("USD")
+  status               BookingStatus      @default(PENDING)
+  
+  // Guest / Traveler details
+  fullName             String
+  email                String
+  phone                String
+  nationality          String
+  specialRequirements  String?            @db.Text
+  privacyAgreed        Boolean            @default(true)
+  idempotencyKey       String?            @unique
+
+  // Notification delivery status
+  businessNotifyStatus NotificationStatus @default(PENDING)
+  customerNotifyStatus NotificationStatus @default(PENDING)
+  notificationLog      String?            @db.Text
+
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([departureDate])
 }
 
 model Inquiry {
@@ -100,6 +165,9 @@ model Inquiry {
 
   tripId         String?
   trip           Trip?         @relation(fields: [tripId], references: [id])
+
+  @@index([email])
+  @@index([status])
 }
 
 model TravelArticle {

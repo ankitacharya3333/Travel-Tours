@@ -62,7 +62,7 @@ export function DestinationCard({ destination }: { destination: DestinationItem 
         <div className="mt-5 pt-3 border-t border-[#f0ede6] flex items-center justify-between">
           <span className="text-xs text-[#5a6b61]">Duration: {destination.recommendedDuration}</span>
           <Link
-            href={`/destinations#${destination.id}`}
+            href={`/destinations/${destination.slug}`}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1e3328] group-hover:text-[#b85a3a] transition-colors"
           >
             <span>Explore Region</span>

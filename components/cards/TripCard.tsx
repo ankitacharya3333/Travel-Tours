@@ -82,7 +82,7 @@ export function TripCard({ trip }: { trip: TripItem }) {
         <div className="mt-5 pt-3 border-t border-[#f0ede6] flex items-center justify-between">
           <span className="text-[10px] font-mono text-[#82998c]">Sample Itinerary</span>
           <Link
-            href={`/trips#${trip.id}`}
+            href={`/trips/${trip.slug}`}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1e3328] group-hover:text-[#b85a3a] transition-colors"
           >
             <span>View Details</span>

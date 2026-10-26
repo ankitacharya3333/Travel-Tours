@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Newsreader, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -57,7 +58,9 @@ export default function RootLayout({
       className={`${jakartaSans.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-[#fbf9f5] text-[#1c2621]">
-        <Header />
+        <Suspense fallback={<div className="h-16 bg-[#fbf9f5]" />}>
+          <Header />
+        </Suspense>
         <main className="flex-1">{children}</main>
         <Footer />
       </body>
