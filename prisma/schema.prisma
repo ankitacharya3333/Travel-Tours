@@ -7,6 +7,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
 enum Difficulty {
   EASY
   MODERATE
@@ -38,10 +43,16 @@ enum TourCategory {
 
 enum InquiryStatus {
   NEW
-  CONTACTED
-  QUOTED
-  CONFIRMED
+  IN_PROGRESS
+  RESPONDED
   CLOSED
+}
+
+enum InquiryType {
+  GENERAL
+  CUSTOM_TOUR
+  TRIP_SPECIFIC
+  CORPORATE_OR_PRIVATE
 }
 
 enum BookingStatus {
@@ -56,6 +67,28 @@ enum NotificationStatus {
   SENT
   FAILED
   SKIPPED
+}
+
+model User {
+  id                 String    @id @default(cuid())
+  email              String    @unique
+  passwordHash       String
+  name               String
+  role               Role      @default(CUSTOMER)
+  phone              String?
+  country            String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  // Password reset token fields (store hashed token only)
+  resetPasswordTokenHash String?   @unique
+  resetPasswordExpiresAt DateTime?
+
+  bookings           Booking[]
+  inquiries          Inquiry[]
+
+  @@index([email])
+  @@index([role])
 }
 
 model Destination {
@@ -128,7 +161,11 @@ model Booking {
   currencySnapshot     String             @default("USD")
   status               BookingStatus      @default(PENDING)
   
-  // Guest / Traveler details
+  // Associated authenticated User (optional for guest bookings)
+  userId               String?
+  user                 User?              @relation(fields: [userId], references: [id])
+
+  // Guest / Traveler contact details
   fullName             String
   email                String
   phone                String
@@ -136,6 +173,9 @@ model Booking {
   specialRequirements  String?            @db.Text
   privacyAgreed        Boolean            @default(true)
   idempotencyKey       String?            @unique
+
+  // Cancellation / Change requests
+  changeRequestNotes   String?            @db.Text
 
   // Notification delivery status
   businessNotifyStatus NotificationStatus @default(PENDING)
@@ -145,6 +185,7 @@ model Booking {
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
 
+  @@index([userId])
   @@index([email])
   @@index([status])
   @@index([departureDate])
@@ -154,20 +195,31 @@ model Inquiry {
   id             String        @id @default(cuid())
   fullName       String
   email          String
-  country        String
   phone          String?
-  travelMonth    String?
-  groupSize      Int           @default(1)
+  country        String?
+  type           InquiryType   @default(GENERAL)
+  subject        String
   customMessage  String        @db.Text
+  travelMonth    String?
+  groupSize      Int?          @default(1)
   status         InquiryStatus @default(NEW)
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  adminNotes     String?       @db.Text
 
+  // Optional User linkage
+  userId         String?
+  user           User?         @relation(fields: [userId], references: [id])
+
+  // Optional related Trip
   tripId         String?
   trip           Trip?         @relation(fields: [tripId], references: [id])
 
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([userId])
   @@index([email])
   @@index([status])
+  @@index([type])
 }
 
 model TravelArticle {

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { Clock, Mountain, ArrowRight } from "lucide-react";
 import { TripItem } from "@/lib/data";
@@ -16,7 +16,7 @@ export function TripCard({ trip }: { trip: TripItem }) {
     <article className="group flex flex-col bg-white border border-[#e4dfd5] rounded-sm overflow-hidden hover:border-[#1e3328]/40 transition-all duration-300 hover:shadow-md">
       {/* Visual Image */}
       <div className="relative aspect-16/10 w-full overflow-hidden bg-[#efece5]">
-        <Image
+        <SafeImage
           src={trip.heroImage}
           alt={trip.title}
           fill

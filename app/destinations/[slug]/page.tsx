@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { getDestinationBySlug } from "@/lib/tours";
 import { Container } from "@/components/ui/Primitives";
@@ -43,7 +43,7 @@ export default async function DestinationDetailPage(props: { params: Promise<{ s
       {/* Hero Header */}
       <section className="relative min-h-[50vh] lg:min-h-[55vh] flex items-end overflow-hidden bg-[#14231b]">
         <div className="absolute inset-0 z-0">
-          <Image
+          <SafeImage
             src={destination.heroImage}
             alt={destination.name}
             fill

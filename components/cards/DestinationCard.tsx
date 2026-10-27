@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { ArrowRight, MapPin } from "lucide-react";
 import { DestinationItem } from "@/lib/data";
@@ -8,7 +8,7 @@ export function DestinationCard({ destination }: { destination: DestinationItem 
     <article className="group relative flex flex-col bg-white border border-[#e4dfd5] rounded-sm overflow-hidden hover:border-[#1e3328]/40 transition-all duration-300 hover:shadow-md">
       {/* Visual Photography */}
       <div className="relative aspect-16/10 w-full overflow-hidden bg-[#efece5]">
-        <Image
+        <SafeImage
           src={destination.heroImage}
           alt={`Scenic view of ${destination.name} in Nepal`}
           fill

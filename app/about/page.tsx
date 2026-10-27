@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { ShieldCheck, HeartHandshake, Compass } from "lucide-react";
 import { Container } from "@/components/ui/Primitives";
 
@@ -29,7 +29,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
           <div className="lg:col-span-6 relative">
             <div className="relative aspect-4/3 rounded-sm overflow-hidden border border-[#e4dfd5] shadow-md bg-[#efece5]">
-              <Image
+              <SafeImage
                 src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop"
                 alt="Sherpa guide standing before snowcapped Himalayan peaks"
                 fill

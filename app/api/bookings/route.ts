@@ -3,6 +3,7 @@ import { BookingSchema } from "@/lib/validations/booking";
 import { prisma } from "@/lib/prisma";
 import { TRIPS_DATA } from "@/lib/data";
 import { sendBookingNotifications } from "@/lib/email";
+import { getCurrentUser } from "@/lib/auth";
 import crypto from "crypto";
 
 // Simple in-memory sliding rate limiter per IP address
@@ -142,12 +143,14 @@ export async function POST(request: Request) {
     }
 
     // 6. Persist to PostgreSQL database using Prisma
+    const session = await getCurrentUser();
     let persistedBooking = null;
     try {
       persistedBooking = await prisma.booking.create({
         data: {
           reference: bookingReference,
           tripId: trip.id,
+          userId: session?.id || null,
           departureDate: departureDateObj,
           travelerCount: input.travelerCount,
           totalPriceSnapshotUsd: calculatedTotalUsd,

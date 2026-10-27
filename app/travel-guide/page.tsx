@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { Clock, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Primitives";
@@ -39,7 +39,7 @@ export default function TravelGuidePage() {
                 {/* Visual */}
                 <div className="lg:col-span-5">
                   <div className="relative aspect-16/10 rounded-sm overflow-hidden bg-[#efece5]">
-                    <Image
+                    <SafeImage
                       src={article.coverImage}
                       alt={article.title}
                       fill

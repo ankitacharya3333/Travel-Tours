@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { MapPin, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Primitives";
@@ -46,7 +46,7 @@ export default function DestinationsPage() {
                   {/* Imagery */}
                   <div className={`lg:col-span-6 ${isReversed ? "lg:order-2" : "lg:order-1"}`}>
                     <div className="relative aspect-16/10 w-full rounded-sm overflow-hidden bg-[#efece5]">
-                      <Image
+                      <SafeImage
                         src={dest.heroImage}
                         alt={`Photography of ${dest.name}`}
                         fill

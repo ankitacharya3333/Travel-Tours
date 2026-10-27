@@ -124,7 +124,7 @@ export const DESTINATIONS_DATA: DestinationItem[] = [
     elevation: "1,400m",
     tagline: "Seven UNESCO World Heritage ensembles spanning medieval art, pagodas, and stupas.",
     description: "A living museum of Newari craftsmanship, tiered pagoda architecture, sacred Hindu pilgrimage shrines at Pashupatinath, and serene Buddhist prayer drums at Boudhanath and Swayambhunath.",
-    heroImage: "https://images.unsplash.com/photo-1582650625119-3a31f8418b7d?q=80&w=1600&auto=format&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1600&auto=format&fit=crop",
     highlights: ["Boudhanath Stupa circumambulation", "Pashupatinath sacred evening aarti", "Bhaktapur medieval durbar square", "Patan Museum metal crafts"],
     bestTime: "September–May",
     recommendedDuration: "3–5 Days",
@@ -315,7 +315,7 @@ export const TRIPS_DATA: TripItem[] = [
     currency: "USD",
     maxGroupSize: 12,
     fitnessRequired: "Gentle walking in heritage towns, temples, and flat jungle trails. No mountaineering fitness needed. Suitable for all age groups.",
-    heroImage: "https://images.unsplash.com/photo-1582650625119-3a31f8418b7d?q=80&w=1200&auto=format&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200&auto=format&fit=crop",
     overview: "Designed for travelers who seek deep cultural understanding and wildlife without strenuous high-altitude trekking. Explores Kathmandu's centuries-old monuments, Pokhara's peaceful lakeside vistas, and Chitwan's wildlife-dense river banks.",
     highlights: [
       "Guided architectural tours of Patan and Bhaktapur royal courtyards",
@@ -454,7 +454,7 @@ export const TRIPS_DATA: TripItem[] = [
     currency: "USD",
     maxGroupSize: 10,
     fitnessRequired: "Comfortable temple walking, modest dress, and respect for holy sanctums.",
-    heroImage: "https://images.unsplash.com/photo-1582650625119-3a31f8418b7d?q=80&w=1200&auto=format&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=1200&auto=format&fit=crop",
     overview: "A profound spiritual journey linking Nepal's most revered shrines. Circumnavigate the colossal stupas of Boudhanath and Swayambhunath, witness sacred evening rituals on the banks of the Bagmati at Pashupatinath, and visit Lumbini, the UNESCO-recognized birthplace of Lord Buddha.",
     highlights: [
       "Mayadevi Temple and the sacred garden in Lumbini",
@@ -698,7 +698,7 @@ export const TRAVEL_ARTICLES: TravelGuideArticle[] = [
     readingTimeMin: 6,
     excerpt: "A realistic breakdown of moisture-wicking base layers, insulating down, footwear selection, and what gear can be rented in Kathmandu.",
     publishedDate: "July 2026",
-    coverImage: "https://images.unsplash.com/photo-1582650625119-3a31f8418b7d?q=80&w=800&auto=format&fit=crop",
+    coverImage: "https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=800&auto=format&fit=crop",
     content: [
       "Preparing for a Himalayan trek is about adaptability. You will experience temperatures ranging from 25°C in sunny sub-tropical river valleys to -15°C at high mountain base camps.",
       "Rely on a three-tier technical layering system: moisture-wicking merino wool or synthetic base layers, insulating fleece or mid-layer jackets, and a windproof/waterproof breathable outer shell.",

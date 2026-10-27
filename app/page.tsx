@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { ArrowRight, Shield, Users, Mountain, Sparkles, CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/ui/Primitives";
@@ -18,7 +18,7 @@ export default function HomePage() {
       <section className="relative min-h-[85vh] lg:min-h-[88vh] flex items-center justify-center overflow-hidden bg-[#14231b]">
         {/* Background Nepal Mountain Photography */}
         <div className="absolute inset-0 z-0">
-          <Image
+          <SafeImage
             src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2000&auto=format&fit=crop"
             alt="Majestic Himalayan snow peaks towering above prayer flags in Nepal"
             fill
@@ -198,7 +198,7 @@ export default function HomePage() {
 
             <div className="lg:col-span-6 relative">
               <div className="relative aspect-4/3 rounded-sm overflow-hidden border border-[#345140] shadow-2xl">
-                <Image
+                <SafeImage
                   src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop"
                   alt="Himalayan mountain guide leading trekkers through Nepal trail"
                   fill
@@ -340,7 +340,7 @@ export default function HomePage() {
                 className="group flex flex-col bg-white border border-[#e4dfd5] rounded-sm overflow-hidden hover:border-[#1e3328]/40 transition-all duration-300 hover:shadow-md"
               >
                 <div className="relative aspect-16/10 w-full overflow-hidden bg-[#efece5]">
-                  <Image
+                  <SafeImage
                     src={article.coverImage}
                     alt={article.title}
                     fill
