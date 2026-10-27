@@ -184,6 +184,7 @@ export async function POST(request: Request) {
       customerNationality: input.nationality,
       specialRequirements: input.specialRequirements,
     });
+    console.log("[Booking email diagnostic]", emailResult.log);
 
     // Update notification status if booking was persisted
     if (persistedBooking) {
