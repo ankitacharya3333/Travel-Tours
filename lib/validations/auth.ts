@@ -1,7 +1,8 @@
 import { z } from "zod";
+import { FullNameSchema, OptionalPhoneSchema } from "./common";
 
 export const RegisterSchema = z.object({
-  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name is too long"),
+  name: FullNameSchema,
   email: z.string().trim().email("Please provide a valid email address").max(120, "Email is too long"),
   password: z
     .string()
@@ -10,7 +11,7 @@ export const RegisterSchema = z.object({
     .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
     .regex(/[a-z]/, "Password must contain at least one lowercase letter")
     .regex(/[0-9]/, "Password must contain at least one number"),
-  phone: z.string().trim().max(30).optional(),
+  phone: OptionalPhoneSchema,
   country: z.string().trim().max(60).optional(),
 });
 
@@ -35,15 +36,15 @@ export const ResetPasswordSchema = z.object({
 });
 
 export const ProfileUpdateSchema = z.object({
-  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
-  phone: z.string().trim().max(30).optional(),
+  name: FullNameSchema,
+  phone: OptionalPhoneSchema,
   country: z.string().trim().max(60).optional(),
 });
 
 export const InquirySchema = z.object({
-  fullName: z.string().trim().min(2, "Full name must be at least 2 characters").max(100),
+  fullName: FullNameSchema,
   email: z.string().trim().email("Please enter a valid email address").max(120),
-  phone: z.string().trim().max(30).optional(),
+  phone: OptionalPhoneSchema,
   country: z.string().trim().max(60).optional(),
   type: z.enum(["GENERAL", "CUSTOM_TOUR", "TRIP_SPECIFIC", "CORPORATE_OR_PRIVATE"]).default("GENERAL"),
   subject: z.string().trim().min(3, "Subject must be at least 3 characters").max(150),

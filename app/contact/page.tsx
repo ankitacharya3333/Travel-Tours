@@ -11,6 +11,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { Container } from "@/components/ui/Primitives";
+import { FullNameSchema } from "@/lib/validations/common";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -31,6 +32,12 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitError("");
+
+    const nameValidation = FullNameSchema.safeParse(formData.fullName);
+    if (!nameValidation.success) {
+      setSubmitError(nameValidation.error.issues[0]?.message || "Please provide a valid full name.");
+      return;
+    }
 
     if (!privacyAgreed) {
       setSubmitError("Please agree to the privacy policy before submitting.");

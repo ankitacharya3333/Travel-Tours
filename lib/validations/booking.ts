@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { FullNameSchema, RequiredPhoneSchema } from "./common";
 
 export const BookingSchema = z.object({
   tripSlug: z.string().min(1, "Tour slug is required"),
@@ -16,22 +17,13 @@ export const BookingSchema = z.object({
     .int("Traveler count must be an integer")
     .min(1, "At least 1 traveler is required")
     .max(20, "For groups larger than 20, please contact our group desk directly"),
-  fullName: z
-    .string()
-    .trim()
-    .min(2, "Full name must be at least 2 characters")
-    .max(100, "Full name cannot exceed 100 characters"),
+  fullName: FullNameSchema,
   email: z
     .string()
     .trim()
     .email("Please provide a valid email address")
     .max(120, "Email address is too long"),
-  phone: z
-    .string()
-    .trim()
-    .min(7, "Phone number must be at least 7 digits")
-    .max(30, "Phone number cannot exceed 30 characters")
-    .regex(/^[\+\d\s\-\(\)]+$/, "Phone number contains invalid characters"),
+  phone: RequiredPhoneSchema,
   nationality: z
     .string()
     .trim()

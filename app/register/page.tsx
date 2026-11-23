@@ -150,11 +150,15 @@ export default function RegisterPage() {
                   <input
                     id="phone"
                     type="tel"
-                    placeholder="+977..."
+                    inputMode="numeric"
+                    placeholder="e.g. 9841234567"
                     {...register("phone")}
-                    className="w-full pl-9 pr-3 py-2 text-sm bg-[#fbf9f5] border border-[#d1cbc2] rounded-sm focus:border-[#1e3328] focus:outline-none"
+                    className={`w-full pl-9 pr-3 py-2 text-sm bg-[#fbf9f5] border rounded-sm focus:outline-none ${
+                      errors.phone ? "border-rose-400 focus:border-rose-500" : "border-[#d1cbc2] focus:border-[#1e3328]"
+                    }`}
                   />
                 </div>
+                {errors.phone && <p className="text-[11px] text-rose-600 mt-1">{errors.phone.message}</p>}
               </div>
 
               <div>

@@ -270,12 +270,13 @@ export function BookingForm({ trip }: BookingFormProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label htmlFor="phone" className="block text-xs font-mono uppercase text-[#4d5c53] mb-1">
-              Phone / WhatsApp (with country code) *
+              Phone / WhatsApp (digits only) *
             </label>
             <input
               id="phone"
               type="tel"
-              placeholder="+1 555-0199 or +44 7700..."
+              inputMode="numeric"
+              placeholder="e.g. 9841234567 or 15550199"
               {...register("phone")}
               className={`w-full px-3 py-2 text-sm bg-[#fbf9f5] border rounded-sm focus:outline-none ${
                 errors.phone ? "border-rose-400 focus:border-rose-500" : "border-[#d1cbc2] focus:border-[#1e3328]"
